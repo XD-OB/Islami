@@ -4,25 +4,17 @@ import 'consts.dart';
 
 class MyDrawer extends StatefulWidget {
   final   modifyTarget;
+  final   initCounter;
   final   target;
 
-  MyDrawer({this.modifyTarget, this.target});
+  MyDrawer({this.modifyTarget, this.initCounter, this.target});
 
   @override
   _MyDrawerState createState() => _MyDrawerState();
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  var initTasbeeh = 0;
   int _target;
-
-  // init tasbeeh
-  void setDefault() {
-    setState(() {
-      initTasbeeh = 0;
-      print(initTasbeeh);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +74,10 @@ class _MyDrawerState extends State<MyDrawer> {
                   textDirection: TextDirection.rtl,
                   style: TextStyle(color: Colors.blue),
                 ),
-                onTap: () => setDefault(),
+                onTap: () {
+                  widget.initCounter();
+                  Navigator.pop(context);
+                }
               ),
             ],
           ),
@@ -102,7 +97,6 @@ class _MyDrawerState extends State<MyDrawer> {
                     textDirection: TextDirection.rtl,
                     style: TextStyle(color: Colors.blue),
                   ),
-                  onTap: () => setDefault(),
                 ),
               ),
             ],

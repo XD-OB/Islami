@@ -32,9 +32,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  int   _widgetIndex = 1;
-  int   target = 99;
+  final   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  int     _widgetIndex = 1;
+  int     target = 99;
+  int     counter = 0;
 
   // Modify target:
   void  modifyTarget(int nbr) {
@@ -43,6 +44,21 @@ class _MyHomePageState extends State<MyHomePage> {
         nbr = 99;
       }
       target = nbr;
+      counter = 0;
+    });
+  }
+
+  // init Hassanat Counter:
+  void  initCounter() {
+    setState(() {
+      counter = 0;
+    });
+  }
+
+  // Increment Hassanat Counter:
+  void  incrementCounter() {
+    setState(() {
+      counter++;
     });
   }
 
@@ -53,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
         key: _scaffoldKey,
         endDrawer: MyDrawer(
           target: target,
-          modifyTarget: modifyTarget
+          modifyTarget: modifyTarget,
+          initCounter: initCounter
         ),
         body: SafeArea(
           child: Stack(
@@ -61,7 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
               IndexedStack(
                 index: _widgetIndex,
                 children: <Widget>[
-                  Tasbeeh(target: target),       
+                  Tasbeeh(
+                    incrementCounter: incrementCounter,
+                    target: target,
+                    counter: counter
+                  ),       
                   QiblahCompass(),
                   MapScreen(),
                 ],

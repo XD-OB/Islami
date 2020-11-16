@@ -3,32 +3,24 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'consts.dart';
 
 class Tasbeeh extends StatefulWidget {
-  final int   target;
+  final int     counter;
+  final int     target;
+  final         incrementCounter;
 
-  Tasbeeh({this.target});
+  Tasbeeh({this.target, this.counter, this.incrementCounter});
 
   @override
   _TasbeehState createState() => _TasbeehState();
 }
 
 class _TasbeehState extends State<Tasbeeh> {
-  int _counter = 0;
-  double _percent = 0;
-
-  // Increment Hassanat Counter:
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      if (_percent + 1 / widget.target < 1)
-        _percent += (1 / widget.target);
-      else
-        _percent = 1;
-      print(double.parse(_percent.toStringAsFixed(3)));
-    });
-  }
+  double  percent;
 
   @override
   Widget build(BuildContext context) {
+    // Affect percent
+    percent = ((widget.counter + 1) / widget.target) < 1 ? widget.counter / widget.target : 1;
+    
     return Container(
       child: Center(
         child: Column(
@@ -51,7 +43,7 @@ class _TasbeehState extends State<Tasbeeh> {
                     'عدد التسبيحات',
                   ),
                   Text(
-                    '$_counter',
+                    '${widget.counter}',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 50,
@@ -62,9 +54,9 @@ class _TasbeehState extends State<Tasbeeh> {
                       width: MediaQuery.of(context).size.width - 180,
                       animation: false,
                       lineHeight: 18.0,
-                      percent: double.parse(_percent.toStringAsFixed(3)),
+                      percent: double.parse(percent.toStringAsFixed(3)),
                       center: Text(
-                          '${(double.parse(_percent.toStringAsFixed(3)) * 100).toInt()}%'),
+                          '${(double.parse(percent.toStringAsFixed(3)) * 100).toInt()}%'),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       progressColor: Color(GreenyBarid),
                     ),
@@ -83,7 +75,7 @@ class _TasbeehState extends State<Tasbeeh> {
               height: 100.0,
               child: FloatingActionButton(
                 backgroundColor: Color(GreenyBarid),
-                onPressed: _incrementCounter,
+                onPressed: widget.incrementCounter,
                 tooltip: 'تسبيح',
                 child: Image.asset(
                   'assets/1.png',
