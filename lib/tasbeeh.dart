@@ -3,9 +3,9 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'consts.dart';
 
 class Tasbeeh extends StatefulWidget {
-  final int     counter;
-  final int     target;
-  final         incrementCounter;
+  final int counter;
+  final int target;
+  final incrementCounter;
 
   Tasbeeh({this.target, this.counter, this.incrementCounter});
 
@@ -14,13 +14,17 @@ class Tasbeeh extends StatefulWidget {
 }
 
 class _TasbeehState extends State<Tasbeeh> {
-  double  percent;
+  double percent;
+  Size screenSize;
 
   @override
   Widget build(BuildContext context) {
     // Affect percent
-    percent = ((widget.counter + 1) / widget.target) < 1 ? widget.counter / widget.target : 1;
-    
+    screenSize = MediaQuery.of(context).size;
+    percent = ((widget.counter + 1) / widget.target) < 1
+        ? widget.counter / widget.target
+        : 1;
+
     return Container(
       child: Center(
         child: Column(
@@ -28,7 +32,7 @@ class _TasbeehState extends State<Tasbeeh> {
           children: <Widget>[
             Image.asset(
               'assets/5.png',
-              height: 300,
+              height: (screenSize.height / 3),
             ),
             Container(
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
@@ -46,7 +50,7 @@ class _TasbeehState extends State<Tasbeeh> {
                     '${widget.counter}',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 50,
+                        fontSize: screenSize.height / 12,
                         color: Color(GreenyBarid)),
                   ),
                   Center(
@@ -71,8 +75,8 @@ class _TasbeehState extends State<Tasbeeh> {
               ),
             ),
             SizedBox(
-              width: 100.0,
-              height: 100.0,
+              width: screenSize.height / 7,
+              height: screenSize.width / 4,
               child: FloatingActionButton(
                 backgroundColor: Color(GreenyBarid),
                 onPressed: widget.incrementCounter,

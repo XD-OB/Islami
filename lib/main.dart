@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'mapScreen.dart';
 import 'consts.dart';
@@ -26,19 +27,18 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  int     _widgetIndex = 1;
-  int     target = 99;
-  int     counter = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  int _widgetIndex = 1;
+  int target = 99;
+  int counter = 0;
 
   // Modify target:
-  void  modifyTarget(int nbr) {
+  void modifyTarget(int nbr) {
     setState(() {
       if (nbr > 1000 || nbr == 0) {
         nbr = 99;
@@ -49,17 +49,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // init Hassanat Counter:
-  void  initCounter() {
+  void initCounter() {
     setState(() {
       counter = 0;
     });
   }
 
   // Increment Hassanat Counter:
-  void  incrementCounter() {
+  void incrementCounter() {
     setState(() {
       counter++;
     });
+    print(MediaQuery.of(context).size.height);
   }
 
   @override
@@ -68,10 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Color(BGcolor),
         key: _scaffoldKey,
         endDrawer: MyDrawer(
-          target: target,
-          modifyTarget: modifyTarget,
-          initCounter: initCounter
-        ),
+            target: target,
+            modifyTarget: modifyTarget,
+            initCounter: initCounter),
         body: SafeArea(
           child: Stack(
             children: <Widget>[
@@ -79,10 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 index: _widgetIndex,
                 children: <Widget>[
                   Tasbeeh(
-                    incrementCounter: incrementCounter,
-                    target: target,
-                    counter: counter
-                  ),       
+                      incrementCounter: incrementCounter,
+                      target: target,
+                      counter: counter),
                   QiblahCompass(),
                   MapScreen(),
                 ],
@@ -106,7 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Color(GreenyBarid),
           color: Color(BGcolor),
           items: [
-            TabItem(icon: ImageIcon(AssetImage('assets/tssbi7.png')) , title: 'حساب تسابيح'),
+            TabItem(
+                isIconBlend: true,
+                icon: SvgPicture.asset('assets/tassbih.svg'),
+                title: 'حساب تسابيح'),
             TabItem(icon: Icons.explore, title: 'اتجاه القِبلة'),
             TabItem(icon: Icons.map, title: 'خريطة المساجد'),
           ],

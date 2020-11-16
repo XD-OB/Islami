@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'consts.dart';
 import 'dart:async';
 
 // Titles Style
-const TextStyle   titleStyle = TextStyle(
+const TextStyle titleStyle = TextStyle(
   color: Colors.black87,
   fontWeight: FontWeight.bold,
   fontSize: 18,
 );
 
-const TextStyle   btnStyle = TextStyle(
+const TextStyle btnStyle = TextStyle(
   color: Color(GreenyBarid),
   fontWeight: FontWeight.bold,
   fontSize: 15,
 );
 
 class MyDrawer extends StatefulWidget {
-  final   modifyTarget;
-  final   initCounter;
-  final   target;
+  final modifyTarget;
+  final initCounter;
+  final target;
 
   MyDrawer({this.modifyTarget, this.initCounter, this.target});
 
@@ -33,11 +34,11 @@ class _MyDrawerState extends State<MyDrawer> {
 
   Future<void> _shareApp() async {
     await FlutterShare.share(
-      title: 'تطبيق مسلمي',
-      text: 'تطبيق للمسلمين للعثور على القبلة ، وتسهيل عد التسبيح وإيجاد المساجد',
-      linkUrl: 'https://google.com/',
-      chooserTitle: 'إسلامي'
-    );
+        title: 'تطبيق مسلمي',
+        text:
+            'تطبيق للمسلمين للعثور على القبلة ، وتسهيل عد التسبيح وإيجاد المساجد',
+        linkUrl: 'https://google.com/',
+        chooserTitle: 'إسلامي');
   }
 
   @override
@@ -89,35 +90,45 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               ListTile(
-                title: Text(
-                  'إعادة التعيين إلى الصفر',
-                  textAlign: TextAlign.center,
-                  style: btnStyle,
-                ),
-                onTap: () {
-                  widget.initCounter();
-                  Navigator.pop(context);
-                }
-              ),
+                  title: Text(
+                    'إعادة التعيين إلى الصفر',
+                    textAlign: TextAlign.center,
+                    style: btnStyle,
+                  ),
+                  onTap: () {
+                    widget.initCounter();
+                    Navigator.pop(context);
+                  }),
             ],
           ),
           SizedBox(height: 20),
           ExpansionTile(
             initiallyExpanded: true,
             title: Text(
-              'اعدادات القبلة',
+              'اعدادات عامة',
               textDirection: TextDirection.rtl,
               style: titleStyle,
             ),
-            trailing: Icon(
-              Icons.calculate_outlined,
-              color: Color(GreenyBarid)
-            ),
+            trailing: Icon(Icons.calculate_outlined, color: Color(GreenyBarid)),
             children: <Widget>[
+              Text('اختيار اللغة'),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/ar.svg', width: 30),
+                    SizedBox(width: 10),
+                    SvgPicture.asset('assets/fr.svg', width: 30),
+                    SizedBox(width: 10),
+                    SvgPicture.asset('assets/eng.svg', width: 30)
+                  ],
+                ),
+              ),
               Container(
                 child: ListTile(
                   title: Text(
-                    'إعادة التعيين إلى الصفر',
+                    'تحديد الموقع',
                     textAlign: TextAlign.center,
                     style: btnStyle,
                   ),
@@ -127,10 +138,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           SizedBox(height: 20),
           ListTile(
-            trailing: Icon(
-              Icons.share,
-              color: Color(GreenyBarid)
-            ),
+            trailing: Icon(Icons.share, color: Color(GreenyBarid)),
             title: Text(
               'سأشارك هذا التطبيق',
               textDirection: TextDirection.rtl,
