@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Color(GreenyBarid),
           color: Color(BGcolor),
           items: [
-            TabItem(icon: ImageIcon(AssetImage('assets/tassbi7.png')) , title: 'حساب تسابيح'),
+            TabItem(icon: ImageIcon(AssetImage('assets/tssbi7.png')) , title: 'حساب تسابيح'),
             TabItem(icon: Icons.explore, title: 'اتجاه القِبلة'),
             TabItem(icon: Icons.map, title: 'خريطة المساجد'),
           ],

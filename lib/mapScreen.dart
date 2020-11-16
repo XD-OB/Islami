@@ -29,7 +29,6 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
     position = widget.oldPosition;
     _beginPosition = position;
-    print(position);
     if (position != null)
       updateLocationMarker();
     rootBundle.loadString('assets/mapStyle/retroMode.txt').then((string) {
@@ -59,7 +58,6 @@ class _MapScreenState extends State<MapScreen> {
         setState(() {
           position = newPosition;
           updateLocationMarker();
-          print(position);            ///////////////
         });
       });
       if (_beginPosition == null)

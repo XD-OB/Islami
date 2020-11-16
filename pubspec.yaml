@@ -19,6 +19,7 @@ dependencies:
   percent_indicator: 2.1.1+1
   google_maps_flutter: ^1.0.6
   geolocator: ^6.1.4
+  flutter_share: ^1.0.5
   
 
 dev_dependencies:

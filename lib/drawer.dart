@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'consts.dart';
+import 'dart:async';
+
+// Titles Style
+const TextStyle   titleStyle = TextStyle(
+  color: Colors.black87,
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+);
+
+const TextStyle   btnStyle = TextStyle(
+  color: Color(GreenyBarid),
+  fontWeight: FontWeight.bold,
+  fontSize: 15,
+);
 
 class MyDrawer extends StatefulWidget {
   final   modifyTarget;
@@ -16,19 +31,24 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
   int _target;
 
+  Future<void> _shareApp() async {
+    await FlutterShare.share(
+      title: 'تطبيق مسلمي',
+      text: 'تطبيق للمسلمين للعثور على القبلة ، وتسهيل عد التسبيح وإيجاد المساجد',
+      linkUrl: 'https://google.com/',
+      chooserTitle: 'إسلامي'
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _target = widget.target;
-
     return Drawer(
       child: ListView(
         children: <Widget>[
           DrawerHeader(
             child: Image.asset(
-              'assets/lailaha.png',
-            ),
-            decoration: BoxDecoration(
-              color: Color(GreenyBarid),
+              'assets/makkah.png',
             ),
           ),
           ExpansionTile(
@@ -36,9 +56,12 @@ class _MyDrawerState extends State<MyDrawer> {
             title: Text(
               'اعدادات التسبيح',
               textDirection: TextDirection.rtl,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: titleStyle,
             ),
-            trailing: Icon(Icons.calculate_outlined),
+            trailing: ImageIcon(
+              AssetImage('assets/tssbi7.png'),
+              color: Color(GreenyBarid),
+            ),
             children: <Widget>[
               Container(
                 margin: EdgeInsets.fromLTRB(30, 0, 30, 30),
@@ -51,10 +74,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       textAlign: TextAlign.center,
                       initialValue: _target.toString(),
                       onChanged: (text) {
-                        if (text.length < 5)
-                          _target = int.parse(text);
-                        else
-                          _target = 999;
+                        _target = (text.length < 5) ? int.parse(text) : 999;
                       },
                       onEditingComplete: () {
                         widget.modifyTarget(_target);
@@ -71,8 +91,8 @@ class _MyDrawerState extends State<MyDrawer> {
               ListTile(
                 title: Text(
                   'إعادة التعيين إلى الصفر',
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(color: Colors.blue),
+                  textAlign: TextAlign.center,
+                  style: btnStyle,
                 ),
                 onTap: () {
                   widget.initCounter();
@@ -81,25 +101,42 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ],
           ),
+          SizedBox(height: 20),
           ExpansionTile(
             initiallyExpanded: true,
             title: Text(
               'اعدادات القبلة',
               textDirection: TextDirection.rtl,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: titleStyle,
             ),
-            trailing: Icon(Icons.calculate_outlined),
+            trailing: Icon(
+              Icons.calculate_outlined,
+              color: Color(GreenyBarid)
+            ),
             children: <Widget>[
               Container(
                 child: ListTile(
                   title: Text(
                     'إعادة التعيين إلى الصفر',
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(color: Colors.blue),
+                    textAlign: TextAlign.center,
+                    style: btnStyle,
                   ),
                 ),
               ),
             ],
+          ),
+          SizedBox(height: 20),
+          ListTile(
+            trailing: Icon(
+              Icons.share,
+              color: Color(GreenyBarid)
+            ),
+            title: Text(
+              'سأشارك هذا التطبيق',
+              textDirection: TextDirection.rtl,
+              style: titleStyle,
+            ),
+            onTap: _shareApp,
           ),
         ],
       ),
