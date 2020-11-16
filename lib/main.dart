@@ -106,9 +106,9 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Color(GreenyBarid),
           color: Color(BGcolor),
           items: [
-            TabItem(icon: Icons.calculate, title: 'tassbi7'),
-            TabItem(icon: Icons.explore, title: 'compass'),
-            TabItem(icon: Icons.map, title: 'Map'),
+            TabItem(icon: ImageIcon(AssetImage('assets/tassbi7.png')) , title: 'حساب تسابيح'),
+            TabItem(icon: Icons.explore, title: 'اتجاه القِبلة'),
+            TabItem(icon: Icons.map, title: 'خريطة المساجد'),
           ],
           initialActiveIndex: 1,
           onTap: (int i) => setState(() => _widgetIndex = i),
