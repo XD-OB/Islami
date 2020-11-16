@@ -33,21 +33,35 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  var _widgetIndex = 1;
+  int   _widgetIndex = 1;
+  int   target = 99;
+
+  // Modify target:
+  void  modifyTarget(int nbr) {
+    setState(() {
+      if (nbr > 1000 || nbr == 0) {
+        nbr = 99;
+      }
+      target = nbr;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(BGcolor),
         key: _scaffoldKey,
-        endDrawer: MyDrawer(),
+        endDrawer: MyDrawer(
+          target: target,
+          modifyTarget: modifyTarget
+        ),
         body: SafeArea(
           child: Stack(
             children: <Widget>[
               IndexedStack(
                 index: _widgetIndex,
                 children: <Widget>[
-                  Tasbeeh(),
+                  Tasbeeh(target: target),       
                   QiblahCompass(),
                   MapScreen(),
                 ],

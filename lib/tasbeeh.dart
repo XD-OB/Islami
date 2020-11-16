@@ -3,21 +3,24 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'consts.dart';
 
 class Tasbeeh extends StatefulWidget {
+  final int   target;
+
+  Tasbeeh({this.target});
+
   @override
   _TasbeehState createState() => _TasbeehState();
 }
 
 class _TasbeehState extends State<Tasbeeh> {
   int _counter = 0;
-  int _target = 69;
   double _percent = 0;
 
   // Increment Hassanat Counter:
   void _incrementCounter() {
     setState(() {
       _counter++;
-      if (_percent + 1 / _target < 1)
-        _percent += (1 / _target);
+      if (_percent + 1 / widget.target < 1)
+        _percent += (1 / widget.target);
       else
         _percent = 1;
       print(double.parse(_percent.toStringAsFixed(3)));
@@ -70,7 +73,7 @@ class _TasbeehState extends State<Tasbeeh> {
                     height: 6,
                   ),
                   Text(
-                    '$_target : الهدف',
+                    '${widget.target} : الهدف',
                   ),
                 ],
               ),
