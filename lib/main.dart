@@ -60,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       counter++;
     });
-    print(MediaQuery.of(context).size.height);
   }
 
   @override

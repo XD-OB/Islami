@@ -28,7 +28,7 @@ class QiblahCompass extends StatelessWidget {
           final qiblahDirection = snapshot.data;
 
           return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -46,10 +46,13 @@ class QiblahCompass extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 20,
+              ),
               Transform.rotate(
                 angle: ((qiblahDirection.qiblah ?? 0) * (pi / 180) * -1),
                 alignment: Alignment.center,
-                child: _needleSvg,
+                child: Image.asset('assets/8464.png'),
               ),
             ],
           );

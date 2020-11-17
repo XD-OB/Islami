@@ -5,6 +5,18 @@ import 'package:flutter_share/flutter_share.dart';
 import 'consts.dart';
 import 'dart:async';
 
+// Titles Style
+const TextStyle titleStyle = TextStyle(
+  color: Colors.black87,
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+);
+
+const TextStyle btnStyle = TextStyle(
+  color: Color(GreenyBarid),
+  fontWeight: FontWeight.bold,
+  fontSize: 15,
+);
 
 class MyDrawer extends StatefulWidget {
   final modifyTarget;
@@ -37,7 +49,7 @@ class _MyDrawerState extends State<MyDrawer> {
         children: <Widget>[
           DrawerHeader(
             child: Image.asset(
-              'assets/makkah.png',
+              'assets/ico.png',
             ),
           ),
           ExpansionTile(
@@ -106,9 +118,9 @@ class _MyDrawerState extends State<MyDrawer> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset('assets/ar.svg', width: 30),
-                    SizedBox(width: 10),
+                    SizedBox(width: 20),
                     SvgPicture.asset('assets/fr.svg', width: 30),
-                    SizedBox(width: 10),
+                    SizedBox(width: 20),
                     SvgPicture.asset('assets/eng.svg', width: 30)
                   ],
                 ),
