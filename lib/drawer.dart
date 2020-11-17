@@ -5,18 +5,6 @@ import 'package:flutter_share/flutter_share.dart';
 import 'consts.dart';
 import 'dart:async';
 
-// Titles Style
-const TextStyle titleStyle = TextStyle(
-  color: Colors.black87,
-  fontWeight: FontWeight.bold,
-  fontSize: 18,
-);
-
-const TextStyle btnStyle = TextStyle(
-  color: Color(GreenyBarid),
-  fontWeight: FontWeight.bold,
-  fontSize: 15,
-);
 
 class MyDrawer extends StatefulWidget {
   final modifyTarget;
