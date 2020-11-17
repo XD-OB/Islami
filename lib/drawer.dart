@@ -7,21 +7,19 @@ import 'langContainer.dart';
 import 'consts.dart';
 import 'dart:async';
 
-
 class MyDrawer extends StatefulWidget {
-  final   modifyTarget;
-  final   initCounter;
-  final   changeLang;
-  final   target;
-  final   language;
+  final modifyTarget;
+  final initCounter;
+  final changeLang;
+  final target;
+  final language;
 
-  MyDrawer({
-    this.modifyTarget,
-    this.initCounter,
-    this.changeLang,
-    this.target,
-    this.language
-  });
+  MyDrawer(
+      {this.modifyTarget,
+      this.initCounter,
+      this.changeLang,
+      this.target,
+      this.language});
 
   @override
   _MyDrawerState createState() => _MyDrawerState();
@@ -33,7 +31,7 @@ class _MyDrawerState extends State<MyDrawer> {
   // Permission change:
   getLocationPermission() async {
     LocationPermission permission = await Geolocator.requestPermission();
-    
+
     if (permission == LocationPermission.deniedForever) {
       await Geolocator.openLocationSettings();
     }
@@ -116,7 +114,7 @@ class _MyDrawerState extends State<MyDrawer> {
               textDirection: TextDirection.rtl,
               style: titleStyle,
             ),
-            trailing: Icon(Icons.calculate_outlined, color: Color(GreenyBarid)),
+            trailing: Icon(Icons.settings, color: Color(GreenyBarid)),
             children: <Widget>[
               Text(drawer[widget.language]['selectLang']),
               Container(
@@ -126,24 +124,18 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: [
                     GestureDetector(
                       child: langArContainer(widget.language),
-                      onTap: () => {
-                        if (widget.language != AR)
-                          widget.changeLang(AR)
-                      },
+                      onTap: () =>
+                          {if (widget.language != AR) widget.changeLang(AR)},
                     ),
                     GestureDetector(
                       child: langFrContainer(widget.language),
-                      onTap: () => {
-                        if (widget.language != FR)
-                          widget.changeLang(FR)
-                      },
+                      onTap: () =>
+                          {if (widget.language != FR) widget.changeLang(FR)},
                     ),
                     GestureDetector(
                       child: langEngContainer(widget.language),
-                      onTap: () => {
-                        if (widget.language != ENG)
-                          widget.changeLang(ENG)
-                      },
+                      onTap: () =>
+                          {if (widget.language != ENG) widget.changeLang(ENG)},
                     ),
                   ],
                 ),

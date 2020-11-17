@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'languages.dart' show menu;
@@ -15,6 +16,10 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -40,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int language = ENG;
 
   // Modify target:
-  void    modifyTarget(int nbr) {
+  void modifyTarget(int nbr) {
     setState(() {
       if (nbr > 1000 || nbr == 0) {
         nbr = 99;
@@ -51,21 +56,21 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // init Hassanat Counter:
-  void    initCounter() {
+  void initCounter() {
     setState(() {
       counter = 0;
     });
   }
 
   // Increment Hassanat Counter:
-  void    incrementCounter() {
+  void incrementCounter() {
     setState(() {
       counter++;
     });
   }
 
   // Change language:
-  void    changeLang(newlang) {
+  void changeLang(newlang) {
     setState(() {
       language = newlang;
     });
@@ -77,11 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Color(BGcolor),
         key: _scaffoldKey,
         endDrawer: MyDrawer(
-            language: language,
-            target: target,
-            changeLang: changeLang,
-            modifyTarget: modifyTarget,
-            initCounter: initCounter,
+          language: language,
+          target: target,
+          changeLang: changeLang,
+          modifyTarget: modifyTarget,
+          initCounter: initCounter,
         ),
         body: SafeArea(
           child: Stack(
@@ -90,16 +95,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 index: _widgetIndex,
                 children: <Widget>[
                   Tasbeeh(
-                      incrementCounter: incrementCounter,
-                      language: language,
-                      target: target,
-                      counter: counter,
+                    incrementCounter: incrementCounter,
+                    language: language,
+                    target: target,
+                    counter: counter,
                   ),
                   QiblahCompass(
-                      language: language,
+                    language: language,
                   ),
                   MapScreen(
-                      language: language,
+                    language: language,
                   ),
                 ],
               ),
