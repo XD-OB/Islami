@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'languages.dart' show tasbih;
 import 'consts.dart';
 
 class Tasbeeh extends StatefulWidget {
-  final int counter;
-  final int target;
-  final incrementCounter;
+  final int   counter;
+  final int   target;
+  final int   language;
+  final       incrementCounter;
 
-  Tasbeeh({this.target, this.counter, this.incrementCounter});
+  Tasbeeh({
+    this.target,
+    this.counter,
+    this.language,
+    this.incrementCounter,
+  });
 
   @override
   _TasbeehState createState() => _TasbeehState();
@@ -44,7 +51,7 @@ class _TasbeehState extends State<Tasbeeh> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    'عدد التسبيحات',
+                    tasbih[widget.language]['count'],
                   ),
                   Text(
                     '${widget.counter}',
@@ -69,7 +76,7 @@ class _TasbeehState extends State<Tasbeeh> {
                     height: 6,
                   ),
                   Text(
-                    '${widget.target} : الهدف',
+                    '${widget.target} : ${tasbih[widget.language]['count']}',
                   ),
                 ],
               ),
@@ -80,7 +87,7 @@ class _TasbeehState extends State<Tasbeeh> {
               child: FloatingActionButton(
                 backgroundColor: Color(GreenyBarid),
                 onPressed: widget.incrementCounter,
-                tooltip: 'تسبيح',
+                tooltip: tasbih[widget.language]['tasbih'],
                 child: Image.asset(
                   'assets/tssbi7.png',
                   height: 50,

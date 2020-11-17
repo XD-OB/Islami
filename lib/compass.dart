@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'languages.dart' show compass;
 import 'dart:math';
 import 'consts.dart';
 
 class QiblahCompass extends StatelessWidget {
+  final   language;
+
+  QiblahCompass({
+    this.language
+  });
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -34,7 +40,7 @@ class QiblahCompass extends StatelessWidget {
                         fontSize: 25),
                   ),
                   Text(
-                    "القبلة",
+                    compass[language],
                     style: TextStyle(fontSize: 25),
                   ),
                 ],

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'languages.dart' show drawer;
 import 'package:geolocator/geolocator.dart';
-import 'langTap.dart';
+import 'langContainer.dart';
 import 'consts.dart';
 import 'dart:async';
 
@@ -41,9 +42,8 @@ class _MyDrawerState extends State<MyDrawer> {
   // Share the App
   Future<void> _shareApp() async {
     await FlutterShare.share(
-        title: 'تطبيق مسلمي',
-        text:
-            'تطبيق للمسلمين للعثور على القبلة ، وتسهيل عد التسبيح وإيجاد المساجد',
+        title: 'Check my app',
+        text: drawer[widget.language]['shareDescription'],
         linkUrl: 'https://google.com/',
         chooserTitle: 'إسلامي');
   }
@@ -62,7 +62,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ExpansionTile(
             initiallyExpanded: true,
             title: Text(
-              'اعدادات التسبيح',
+              drawer[widget.language]['tasbihSets'],
               textDirection: TextDirection.rtl,
               style: titleStyle,
             ),
@@ -77,7 +77,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: [
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'اختر هدفك في عدد التسبيحات',
+                        hintText: drawer[widget.language]['chooseGoal'],
                       ),
                       textAlign: TextAlign.center,
                       initialValue: _target.toString(),
@@ -98,7 +98,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               ListTile(
                   title: Text(
-                    'إعادة التعيين إلى الصفر',
+                    drawer[widget.language]['reset'],
                     textAlign: TextAlign.center,
                     style: btnStyle,
                   ),
@@ -112,13 +112,13 @@ class _MyDrawerState extends State<MyDrawer> {
           ExpansionTile(
             initiallyExpanded: true,
             title: Text(
-              'اعدادات عامة',
+              drawer[widget.language]['generalSets'],
               textDirection: TextDirection.rtl,
               style: titleStyle,
             ),
             trailing: Icon(Icons.calculate_outlined, color: Color(GreenyBarid)),
             children: <Widget>[
-              Text('اختيار اللغة'),
+              Text(drawer[widget.language]['selectLang']),
               Container(
                 margin: EdgeInsets.all(10),
                 child: Row(
@@ -151,7 +151,7 @@ class _MyDrawerState extends State<MyDrawer> {
               Container(
                 child: ListTile(
                   title: Text(
-                    'تحديد الموقع',
+                    drawer[widget.language]['locationAccess'],
                     textAlign: TextAlign.center,
                     style: btnStyle,
                   ),
@@ -166,7 +166,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ListTile(
             trailing: Icon(Icons.share, color: Color(GreenyBarid)),
             title: Text(
-              'سأشارك هذا التطبيق',
+              drawer[widget.language]['share'],
               textDirection: TextDirection.rtl,
               style: titleStyle,
             ),

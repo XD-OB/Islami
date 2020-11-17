@@ -5,10 +5,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'languages.dart' show map;
 import 'dart:math' show min;
 import 'consts.dart';
 
 class MapScreen extends StatefulWidget {
+  final     language;
+
+  MapScreen({
+    this.language
+  });
 
   @override
   _MapScreenState createState() => _MapScreenState();
@@ -156,7 +162,7 @@ class _MapScreenState extends State<MapScreen> {
           child: FloatingActionButton.extended(
             backgroundColor: Color(GreenyBarid),
             onPressed: _currentLocation,
-            label: Text('موقعي'),
+            label: Text(map[widget.language]),
             icon: Icon(Icons.gps_fixed),
           ),
         ),

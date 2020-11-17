@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'languages.dart' show menu;
 import 'mapScreen.dart';
 import 'consts.dart';
 import 'tasbeeh.dart';
@@ -90,10 +91,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Tasbeeh(
                       incrementCounter: incrementCounter,
+                      language: language,
                       target: target,
-                      counter: counter),
-                  QiblahCompass(),
-                  MapScreen(),
+                      counter: counter,
+                  ),
+                  QiblahCompass(
+                      language: language,
+                  ),
+                  MapScreen(
+                      language: language,
+                  ),
                 ],
               ),
               Align(
@@ -118,9 +125,9 @@ class _MyHomePageState extends State<MyHomePage> {
             TabItem(
                 isIconBlend: true,
                 icon: SvgPicture.asset('assets/tassbih.svg'),
-                title: 'حساب تسابيح'),
-            TabItem(icon: Icons.explore, title: 'اتجاه القِبلة'),
-            TabItem(icon: Icons.map, title: 'خريطة المساجد'),
+                title: menu[language]['tasbih']),
+            TabItem(icon: Icons.explore, title: menu[language]['compass']),
+            TabItem(icon: Icons.map, title: menu[language]['map']),
           ],
           initialActiveIndex: 1,
           onTap: (int i) => setState(() => _widgetIndex = i),
