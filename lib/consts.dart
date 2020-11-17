@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 const   GreenyBarid = 0xFF4BC3A8;
 const   BGcolor = 0xFFEEEEEE;
 
+// Languages Consts:
+const int     AR = 0;
+const int     FR = 1;
+const int     ENG = 2;
+
 // Google Maps API Key
 const   GM_API_KEY = "AIzaSyC0g7qhxWZYR7qla2m9ZZYd3bx-osFizn4";
 

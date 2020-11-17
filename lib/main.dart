@@ -36,9 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _widgetIndex = 1;
   int target = 99;
   int counter = 0;
+  int language = ENG;
 
   // Modify target:
-  void modifyTarget(int nbr) {
+  void    modifyTarget(int nbr) {
     setState(() {
       if (nbr > 1000 || nbr == 0) {
         nbr = 99;
@@ -49,16 +50,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // init Hassanat Counter:
-  void initCounter() {
+  void    initCounter() {
     setState(() {
       counter = 0;
     });
   }
 
   // Increment Hassanat Counter:
-  void incrementCounter() {
+  void    incrementCounter() {
     setState(() {
       counter++;
+    });
+  }
+
+  // Change language:
+  void    changeLang(newlang) {
+    setState(() {
+      language = newlang;
     });
   }
 
@@ -68,9 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Color(BGcolor),
         key: _scaffoldKey,
         endDrawer: MyDrawer(
+            language: language,
             target: target,
+            changeLang: changeLang,
             modifyTarget: modifyTarget,
-            initCounter: initCounter),
+            initCounter: initCounter,
+        ),
         body: SafeArea(
           child: Stack(
             children: <Widget>[

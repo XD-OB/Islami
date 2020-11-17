@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:geolocator/geolocator.dart';
+import 'langTap.dart';
 import 'consts.dart';
 import 'dart:async';
 
-// Titles Style
-const TextStyle titleStyle = TextStyle(
-  color: Colors.black87,
-  fontWeight: FontWeight.bold,
-  fontSize: 18,
-);
-
-const TextStyle btnStyle = TextStyle(
-  color: Color(GreenyBarid),
-  fontWeight: FontWeight.bold,
-  fontSize: 15,
-);
 
 class MyDrawer extends StatefulWidget {
-  final modifyTarget;
-  final initCounter;
-  final target;
+  final   modifyTarget;
+  final   initCounter;
+  final   changeLang;
+  final   target;
+  final   language;
 
-  MyDrawer({this.modifyTarget, this.initCounter, this.target});
+  MyDrawer({
+    this.modifyTarget,
+    this.initCounter,
+    this.changeLang,
+    this.target,
+    this.language
+  });
 
   @override
   _MyDrawerState createState() => _MyDrawerState();
@@ -32,6 +29,16 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
   int _target;
 
+  // Permission change:
+  getLocationPermission() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+    
+    if (permission == LocationPermission.deniedForever) {
+      await Geolocator.openLocationSettings();
+    }
+  }
+
+  // Share the App
   Future<void> _shareApp() async {
     await FlutterShare.share(
         title: 'تطبيق مسلمي',
@@ -115,13 +122,29 @@ class _MyDrawerState extends State<MyDrawer> {
               Container(
                 margin: EdgeInsets.all(10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SvgPicture.asset('assets/ar.svg', width: 30),
-                    SizedBox(width: 20),
-                    SvgPicture.asset('assets/fr.svg', width: 30),
-                    SizedBox(width: 20),
-                    SvgPicture.asset('assets/eng.svg', width: 30)
+                    GestureDetector(
+                      child: langArContainer(widget.language),
+                      onTap: () => {
+                        if (widget.language != AR)
+                          widget.changeLang(AR)
+                      },
+                    ),
+                    GestureDetector(
+                      child: langFrContainer(widget.language),
+                      onTap: () => {
+                        if (widget.language != FR)
+                          widget.changeLang(FR)
+                      },
+                    ),
+                    GestureDetector(
+                      child: langEngContainer(widget.language),
+                      onTap: () => {
+                        if (widget.language != ENG)
+                          widget.changeLang(ENG)
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -132,6 +155,9 @@ class _MyDrawerState extends State<MyDrawer> {
                     textAlign: TextAlign.center,
                     style: btnStyle,
                   ),
+                  onTap: () {
+                    getLocationPermission();
+                  },
                 ),
               ),
             ],
