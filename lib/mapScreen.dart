@@ -5,17 +5,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'dart:math' show min, cos, sqrt, asin;
+import 'dart:math' show min;
 import 'consts.dart';
-
-double _coordinateDistance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;
-    var c = cos;
-    var a = 0.5 -
-        c((lat2 - lat1) * p) / 2 +
-        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a));
-}
 
 class MapScreen extends StatefulWidget {
 
@@ -43,59 +34,6 @@ class _MapScreenState extends State<MapScreen> {
     rootBundle.loadString('assets/mapStyle/retroMode.txt').then((string) {
       _mapStyle = string;
     });
-  }
-
-  void    _createPolylines(PointLatLng start, PointLatLng destination) async {
-    double            totalDistance = 0.0;
-    // Initializing PolylinePoints
-    PolylinePoints    polylinePoints = PolylinePoints();
-
-    // Generating the list of coordinates to be used for drawing the polylines
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      GM_API_KEY,                   // Google Maps API Key 
-      start, destination,
-      travelMode: TravelMode.driving,
-    );
-
-    print(result.errorMessage);
-
-    // Adding the coordinates to the list
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-    }
-
-    // Defining an ID
-    PolylineId id = PolylineId('poly');
-
-    // Initializing Polyline
-    Polyline polyline = Polyline(
-      polylineId: id,
-      color: Colors.red,
-      points: polylineCoordinates,
-      width: 3,
-    );
-
-    // Adding the polyline to the map
-    polylines[id] = polyline;
-    
-    // Calculating the total distance by adding the distance
-    // between small segments
-    for (int i = 0; i < polylineCoordinates.length - 1; i++) {
-      totalDistance += _coordinateDistance(
-        polylineCoordinates[i].latitude,
-        polylineCoordinates[i].longitude,
-        polylineCoordinates[i + 1].latitude,
-        polylineCoordinates[i + 1].longitude,
-      );
-    }
-
-    // Storing the calculated total distance of the route
-    setState(() {
-      print('DISTANCE: ${totalDistance.toStringAsFixed(2)} km');
-    });
-
   }
 
   // Get Location
@@ -141,11 +79,6 @@ class _MapScreenState extends State<MapScreen> {
           _handleTap(DragEndPosition);
         }
       );
-      if (position != null) {
-        _createPolylines(
-          PointLatLng(position.latitude, position.longitude),
-          PointLatLng(markers['p2'].position.latitude, markers['p2'].position.longitude));
-      }
     });
   }
 

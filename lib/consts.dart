@@ -4,7 +4,7 @@ const   GreenyBarid = 0xFF4BC3A8;
 const   BGcolor = 0xFFEEEEEE;
 
 // Google Maps API Key
-const   GM_API_KEY = "AIzaSyCUqBPlyA1BCh_P80LnCHdeIMJ5S5YJkkU";
+const   GM_API_KEY = "AIzaSyC0g7qhxWZYR7qla2m9ZZYd3bx-osFizn4";
 
 // Google Maps settings
 const double  CAM_ZOOM =  16;
