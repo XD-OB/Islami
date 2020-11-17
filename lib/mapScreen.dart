@@ -45,21 +45,19 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
-  void    _createPolylines(LatLng start, LatLng destination) async {
+  void    _createPolylines(PointLatLng start, PointLatLng destination) async {
+    double            totalDistance = 0.0;
     // Initializing PolylinePoints
-    polylinePoints = PolylinePoints();
-    double totalDistance = 0.0;
+    PolylinePoints    polylinePoints = PolylinePoints();
 
-    // Generating the list of coordinates to be used for
-    // drawing the polylines
-    PolylineResult result = await polylinePoints?.getRouteBetweenCoordinates(
-      GM_API_KEY, // Google Maps API Key 
-      PointLatLng(start.latitude, start.longitude),
-      PointLatLng(destination.latitude, destination.longitude),
+    // Generating the list of coordinates to be used for drawing the polylines
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      GM_API_KEY,                   // Google Maps API Key 
+      start, destination,
       travelMode: TravelMode.driving,
     );
 
-    print(result.points);
+    print(result.errorMessage);
 
     // Adding the coordinates to the list
     if (result.points.isNotEmpty) {
@@ -98,21 +96,6 @@ class _MapScreenState extends State<MapScreen> {
       print('DISTANCE: ${totalDistance.toStringAsFixed(2)} km');
     });
 
-}
-
-  void    updateLocationMarker() async {
-    setState(() {
-      markers['myLocation'] = Marker(
-        markerId: MarkerId('myLocation'),
-        position: LatLng(
-          position.latitude,
-          position.longitude,
-        ),
-        infoWindow: InfoWindow(
-          title: 'موقعي',
-        ),
-      );
-    });
   }
 
   // Get Location
@@ -139,8 +122,6 @@ class _MapScreenState extends State<MapScreen> {
       Geolocator.getPositionStream().listen((Position newPosition) {
         setState(() {
           position = newPosition;
-          if (position != null)
-            updateLocationMarker();
         });
       });
     } catch(e) {
@@ -160,8 +141,10 @@ class _MapScreenState extends State<MapScreen> {
           _handleTap(DragEndPosition);
         }
       );
-      if (markers['myLocation'] != null) {
-        _createPolylines(markers['myLocation'].position , markers['p2'].position);
+      if (position != null) {
+        _createPolylines(
+          PointLatLng(position.latitude, position.longitude),
+          PointLatLng(markers['p2'].position.latitude, markers['p2'].position.longitude));
       }
     });
   }
@@ -187,6 +170,18 @@ class _MapScreenState extends State<MapScreen> {
               ),
             ],
           );
+  }
+
+  void _currentLocation() async {
+   final GoogleMapController controller = await _controller.future;
+
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        bearing: CAM_BEARING,
+        target: LatLng(position.latitude, position.longitude),
+        zoom: CAM_ZOOM,
+      ),
+    ));
   }
 
   @override
@@ -215,13 +210,22 @@ class _MapScreenState extends State<MapScreen> {
           ),
           mapType: MapType.normal,
           myLocationEnabled: true,
-          myLocationButtonEnabled: true,
+          myLocationButtonEnabled: false,
           tiltGesturesEnabled: true,
           scrollGesturesEnabled: true,
           zoomGesturesEnabled: true,
           onTap: _handleTap,
           markers: Set<Marker>.of(markers.values),
           polylines: Set<Polyline>.of(polylines.values),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10.0),
+          child: FloatingActionButton.extended(
+            backgroundColor: Color(GreenyBarid),
+            onPressed: _currentLocation,
+            label: Text('موقعي'),
+            icon: Icon(Icons.gps_fixed),
+          ),
         ),
       ],
     );
