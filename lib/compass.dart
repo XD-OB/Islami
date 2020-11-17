@@ -6,13 +6,6 @@ import 'dart:math';
 import 'consts.dart';
 
 class QiblahCompass extends StatelessWidget {
-  final _needleSvg = SvgPicture.asset(
-    'assets/needle.svg',
-    fit: BoxFit.contain,
-    height: 300,
-    alignment: Alignment.center,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -52,7 +45,7 @@ class QiblahCompass extends StatelessWidget {
               Transform.rotate(
                 angle: ((qiblahDirection.qiblah ?? 0) * (pi / 180) * -1),
                 alignment: Alignment.center,
-                child: Image.asset('assets/8464.png'),
+                child: Image.asset('assets/Qiblah.png'),
               ),
             ],
           );

@@ -31,7 +31,7 @@ class _TasbeehState extends State<Tasbeeh> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Image.asset(
-              'assets/5.png',
+              'assets/TasbeehBG.png',
               height: (screenSize.height / 3),
             ),
             Container(
@@ -82,7 +82,7 @@ class _TasbeehState extends State<Tasbeeh> {
                 onPressed: widget.incrementCounter,
                 tooltip: 'تسبيح',
                 child: Image.asset(
-                  'assets/1.png',
+                  'assets/tssbi7.png',
                   height: 50,
                 ),
               ),
