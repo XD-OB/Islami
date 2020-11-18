@@ -98,7 +98,6 @@ class _MapScreenState extends State<MapScreen> {
     final Size    screenSize = MediaQuery.of(context).size;
 
     if (position == null)
-      getLocation();
       return WidgetLoadingPos(widget.language, screenSize);
     return Stack(
       children: <Widget>[
