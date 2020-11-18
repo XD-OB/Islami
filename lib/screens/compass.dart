@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../consts/languages.dart' show compass;
-import 'dart:math';
+import '../components/widgetLoadingPos.dart';
 import '../consts/consts.dart';
+import 'dart:math';
 
 class QiblahCompass extends StatelessWidget {
   final   language;
@@ -21,10 +22,7 @@ class QiblahCompass extends StatelessWidget {
         stream: FlutterQiblah.qiblahStream,
         builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
-            return SpinKitRipple(
-              color: Color(GreenyBarid),
-              size: 2 * screenSize.width / 3,
-            );
+            return WidgetLoadingPos(language, screenSize);
 
           final qiblahDirection = snapshot.data;
 
