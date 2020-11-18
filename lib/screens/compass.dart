@@ -17,7 +17,7 @@ class QiblahCompass extends StatelessWidget {
   });
 
   hideMsg() async {
-    await new Future.delayed(const Duration(seconds : 25));
+    await new Future.delayed(const Duration(seconds : 10));
     _msgVisibility = false;
   }
 
