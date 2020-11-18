@@ -42,10 +42,10 @@ class _MapScreenState extends State<MapScreen> {
       try {
         position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high,
-        ).timeout(Duration(seconds: 5));                                ///////
+        ).timeout(Duration(seconds: 10));                                ///////
       } catch(e) {
         position = await Geolocator.getLastKnownPosition(
-        ).timeout(Duration(seconds: 5));
+        ).timeout(Duration(seconds: 10));
         print(e);
       }
       updateLocation();
