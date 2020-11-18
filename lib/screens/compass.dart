@@ -4,19 +4,27 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../consts/languages.dart' show compass;
 import '../components/widgetLoadingPos.dart';
 import '../consts/consts.dart';
+import 'dart:async';
 import 'dart:math';
+import 'dart:io';
 
 class QiblahCompass extends StatelessWidget {
+  bool    _msgVisibility = true;
   final   language;
 
   QiblahCompass({
     this.language
   });
 
+  hideMsg() async {
+    await new Future.delayed(const Duration(seconds : 25));
+    _msgVisibility = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size   screenSize = MediaQuery.of(context).size;
-
+    hideMsg();
     return Center(
       child: StreamBuilder(
         stream: FlutterQiblah.qiblahStream,
@@ -29,12 +37,22 @@ class QiblahCompass extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Visibility(
+                visible: _msgVisibility == true,
+                child: Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Text(
+                    compass[language]['msg'],
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 textDirection: (language == AR) ? TextDirection.rtl : TextDirection.ltr,
                 children: <Widget>[
                   Text(
-                    compass[language],
+                    compass[language]['qiblah'],
                     style: TextStyle(fontSize: 25),
                   ),
                   Text(

@@ -78,11 +78,20 @@ const     tasbih = [
 
 const     compass = [
     // Arabic:
-    " :القبلة",
+    {
+      'qiblah': " :القبلة",
+      'msg': 'قم بمعايرة بوصلتك قبل استخدام التطبيق ، أو كوّن 8 في الهواء باستخدام جهازك!',
+    },
     // French:
-    'Qiblah: ',
+    {
+      'qiblah': 'Qiblah: ',
+      'msg': "Calibrer votre boussole avant l'utilisation de l'application, ou formez des 8 dans l'air avec votre appareil!",
+    },
     // English:
-    'Qiblah: ',
+    {
+      'qiblah': 'Qiblah: ',
+      'msg': 'Calibrate your compass before using the app, or form 8s in the air with your device!',
+    },
 ];
 
 
