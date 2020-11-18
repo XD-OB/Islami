@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_share/flutter_share.dart';
-import 'languages.dart' show drawer;
+import 'consts/languages.dart' show drawer;
 import 'package:geolocator/geolocator.dart';
-import 'langContainer.dart';
-import 'consts.dart';
+import 'components/langContainer.dart';
+import 'components/langTiles.dart';
+import 'consts/consts.dart';
 import 'dart:async';
+
 
 class MyDrawer extends StatefulWidget {
   final modifyTarget;
@@ -57,14 +59,10 @@ class _MyDrawerState extends State<MyDrawer> {
               'assets/ico.png',
             ),
           ),
-          ExpansionTile(
-            initiallyExpanded: true,
-            title: Text(
-              drawer[widget.language]['tasbihSets'],
-              textDirection: TextDirection.rtl,
-              style: titleStyle,
-            ),
-            trailing: ImageIcon(
+          ExpLangTile(
+            text: drawer[widget.language]['tasbihSets'],
+            language: widget.language,
+            icon: ImageIcon(
               AssetImage('assets/tssbi7.png'),
               color: Color(GreenyBarid),
             ),
@@ -107,14 +105,13 @@ class _MyDrawerState extends State<MyDrawer> {
             ],
           ),
           SizedBox(height: 20),
-          ExpansionTile(
-            initiallyExpanded: true,
-            title: Text(
-              drawer[widget.language]['generalSets'],
-              textDirection: TextDirection.rtl,
-              style: titleStyle,
+          ExpLangTile(
+            text: drawer[widget.language]['generalSets'],
+            language: widget.language,
+            icon: Icon(
+              Icons.settings,
+              color: Color(GreenyBarid),
             ),
-            trailing: Icon(Icons.settings, color: Color(GreenyBarid)),
             children: <Widget>[
               Text(drawer[widget.language]['selectLang']),
               Container(
@@ -155,14 +152,14 @@ class _MyDrawerState extends State<MyDrawer> {
             ],
           ),
           SizedBox(height: 20),
-          ListTile(
-            trailing: Icon(Icons.share, color: Color(GreenyBarid)),
-            title: Text(
-              drawer[widget.language]['share'],
-              textDirection: TextDirection.rtl,
-              style: titleStyle,
-            ),
+          ListLangTile(
+            text: drawer[widget.language]['share'],
+            language: widget.language,
             onTap: _shareApp,
+            icon: Icon(
+              Icons.share,
+              color: Color(GreenyBarid),
+            ),
           ),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'consts.dart';
+import '../consts/consts.dart';
 
 // Language Arab Button
 Widget    langArContainer(int lang) {

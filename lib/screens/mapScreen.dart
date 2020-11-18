@@ -1,13 +1,11 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'languages.dart' show map;
-import 'dart:math' show min;
-import 'consts.dart';
+import '../components/widgetLoadingPos.dart';
+import '../consts/languages.dart' show map;
+import '../consts/consts.dart';
+import 'dart:async';
 
 class MapScreen extends StatefulWidget {
   final     language;
@@ -25,12 +23,6 @@ class _MapScreenState extends State<MapScreen> {
   Geolocator                      geolocator = Geolocator();
   String                          _mapStyle;
   Position                        position;
-  // Object for PolylinePoints
-  PolylinePoints                  polylinePoints;
-  // List of coordinates to join
-  List<LatLng>                    polylineCoordinates = [];
-  // Map storing polylines created by connecting 2 points
-  Map<PolylineId, Polyline>       polylines = {};
   Map<String, Marker>             markers = {};
 
   @override
@@ -88,29 +80,6 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
-  // Loading position widget
-    Widget    widget_loading_position(screenSize) {
-      return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget> [
-              SpinKitRipple(
-                color: Color(GreenyBarid),
-                size: 2 * min(screenSize.width, screenSize.height) / 3,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget> [
-                  Text(
-                    'محاولة لتحديد موقعك الجغرافي',
-                    style: titleStyle,
-                  ),
-                  Text('يرجى الانتظار'),
-                ],
-              ),
-            ],
-          );
-  }
-
   void _currentLocation() async {
    final GoogleMapController controller = await _controller.future;
 
@@ -129,7 +98,7 @@ class _MapScreenState extends State<MapScreen> {
     final Size    screenSize = MediaQuery.of(context).size;
 
     if (position == null)
-      return widget_loading_position(screenSize);
+      return WidgetLoadingPos(widget.language, screenSize);
     return Stack(
       children: <Widget>[
         GoogleMap(
@@ -155,14 +124,13 @@ class _MapScreenState extends State<MapScreen> {
           zoomGesturesEnabled: true,
           onTap: _handleTap,
           markers: Set<Marker>.of(markers.values),
-          polylines: Set<Polyline>.of(polylines.values),
         ),
         Padding(
           padding: EdgeInsets.all(10.0),
           child: FloatingActionButton.extended(
             backgroundColor: Color(GreenyBarid),
             onPressed: _currentLocation,
-            label: Text(map[widget.language]),
+            label: Text(map[widget.language]['myLocation']),
             icon: Icon(Icons.gps_fixed),
           ),
         ),

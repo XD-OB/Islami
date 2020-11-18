@@ -78,19 +78,31 @@ const     tasbih = [
 
 const     compass = [
     // Arabic:
-    "القبلة",
+    " :القبلة",
     // French:
-    'Qiblah',
+    'Qiblah: ',
     // English:
-    'Qiblah',
+    'Qiblah: ',
 ];
 
 
 const     map = [
     // Arabic:
-    'موقعي',
+    {
+      'myLocation': 'موقعي',
+      'locate': 'محاولة لتحديد موقعك الجغرافي',
+      'wait': 'يرجى الانتظار',
+    },
     // French:
-    'Ma position',
+    {
+      'myLocation': 'Ma position',
+      'locate': 'Détermination votre emplacement géographique',
+      'wait': "S'il vous plaît, attendez",
+    },
     // English:
-    'My Location',
+    {
+      'myLocation': 'My Location',
+      'locate': 'Trying to determine your geographic location',
+      'wait': 'Please wait',
+    },
 ];

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'languages.dart' show menu;
-import 'mapScreen.dart';
-import 'consts.dart';
-import 'tasbeeh.dart';
-import 'compass.dart';
+import 'consts/languages.dart' show menu;
+import 'screens/mapScreen.dart';
+import 'consts/consts.dart';
+import 'screens/tasbeeh.dart';
+import 'screens/compass.dart';
 import 'drawer.dart';
 
 void main() {
@@ -76,12 +76,30 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Scaffold  LangScaffold({language, myDrawer, body, bottomNavBar}) {
+    if (language == AR)
+      return Scaffold(
         backgroundColor: Color(BGcolor),
         key: _scaffoldKey,
-        endDrawer: MyDrawer(
+        endDrawer: myDrawer,
+        body: body,
+        bottomNavigationBar: bottomNavBar,
+      );
+    else
+      return Scaffold(
+        backgroundColor: Color(BGcolor),
+        key: _scaffoldKey,
+        drawer: myDrawer,
+        body: body,
+        bottomNavigationBar: bottomNavBar,
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LangScaffold(
+        language: language,
+        myDrawer: MyDrawer(
           language: language,
           target: target,
           changeLang: changeLang,
@@ -117,13 +135,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     Icons.settings,
                     size: 35,
                   ),
-                  onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
+                  onPressed: (language == AR) ?
+                    () => _scaffoldKey.currentState.openEndDrawer() :
+                    () => _scaffoldKey.currentState.openDrawer(),
                 ),
               ),
             ],
           ),
         ),
-        bottomNavigationBar: ConvexAppBar(
+        bottomNavBar: ConvexAppBar(
           backgroundColor: Color(GreenyBarid),
           color: Color(BGcolor),
           items: [

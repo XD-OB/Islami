@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'languages.dart' show compass;
+import '../consts/languages.dart' show compass;
 import 'dart:math';
-import 'consts.dart';
+import '../consts/consts.dart';
 
 class QiblahCompass extends StatelessWidget {
   final   language;
@@ -14,6 +14,8 @@ class QiblahCompass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size   screenSize = MediaQuery.of(context).size;
+
     return Center(
       child: StreamBuilder(
         stream: FlutterQiblah.qiblahStream,
@@ -21,7 +23,7 @@ class QiblahCompass extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting)
             return SpinKitRipple(
               color: Color(GreenyBarid),
-              size: 50.0,
+              size: 2 * screenSize.width / 3,
             );
 
           final qiblahDirection = snapshot.data;
@@ -31,22 +33,23 @@ class QiblahCompass extends StatelessWidget {
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                textDirection: (language == AR) ? TextDirection.rtl : TextDirection.ltr,
                 children: <Widget>[
                   Text(
-                    "${qiblahDirection.offset.toStringAsFixed(1)}°  ",
+                    compass[language],
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    "${qiblahDirection.offset.toStringAsFixed(1)}°",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.orange,
                         fontSize: 25),
                   ),
-                  Text(
-                    compass[language],
-                    style: TextStyle(fontSize: 25),
-                  ),
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 40,
               ),
               Transform.rotate(
                 angle: ((qiblahDirection.qiblah ?? 0) * (pi / 180) * -1),

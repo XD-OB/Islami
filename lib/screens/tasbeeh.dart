@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'languages.dart' show tasbih;
-import 'consts.dart';
+import '../consts/languages.dart' show tasbih;
+import '../consts/consts.dart';
 
 class Tasbeeh extends StatefulWidget {
   final int   counter;
@@ -75,8 +75,13 @@ class _TasbeehState extends State<Tasbeeh> {
                   SizedBox(
                     height: 6,
                   ),
-                  Text(
-                    '${widget.target} : ${tasbih[widget.language]['count']}',
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Text(
+                      widget.language == AR ?
+                        '${widget.target} : ${tasbih[widget.language]['target']}' : 
+                        '${tasbih[widget.language]['target']} : ${widget.target}'
+                    ),
                   ),
                 ],
               ),
